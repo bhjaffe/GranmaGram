@@ -1,3 +1,5 @@
 granma/local_settings.py
 granma/local_settings.pyc
 *.pyc
+.idea
+.DS_Store
