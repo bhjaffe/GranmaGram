@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block main %}
+ <div>
+ <h2>Log in as with one of the following</h2>
+
+ <p>
+   <ul>
+   {% if user and not user.is_anonymous %}
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+       <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+     </li>
+   {% else %}
+     <li>
+       <a href="{% url 'social:begin' 'facebook' %}?next={% url 'home' %}">Facebook</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'home' %}">Google</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={% url 'home' %}">Twitter</a>
+     </li>
+   {% endif %}
+   </ul>
+ </p>
+ </div>
+{% endblock %}

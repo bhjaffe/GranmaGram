@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block main %}
+ <div>
+ <h2>Create a GranmaGram Account</h2>
+ <p>
+   <ul>
+   {% if user and not user.is_anonymous %}
+     <li>
+       <p>Hello {{ user.get_full_name|default:user.username }}, you already have an account.</p>
+     </li>
+     <li>
+       <p>To create a new account, first <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a></p>
+     </li>
+   {% else %}
+       <h3>Step 1: link with an existing account</h3>
+        <p>This keeps your account secure.</p>
+       <li>
+       <a href="{% url 'social:begin' 'google-oauth2' %}?next={% url 'home' %}">Google</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'facebook' %}?next={% url 'home' %}">Facebook</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'twitter' %}?next={% url 'home' %}">Twitter</a>
+     </li>
+       <p></p>
+       <p>Don't have one of these? Creating a new <a href="https://accounts.google.com/SignUp?service=mail" target="_blank">Google account</a> is easy.</p>
+   {% endif %}
+   </ul>
+ </p>
+ </div>
+{% endblock %}
