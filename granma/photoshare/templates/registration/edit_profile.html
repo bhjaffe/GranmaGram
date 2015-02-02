@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<form method="POST">
-    {% csrf_token %}
-    {{ profile_form }}
-    <input type="submit" value="Submit comment" />
-</form>
+    <h2>Enter your profile details</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ profile_form }}
+        <input type="submit" value="Submit"/>
+    </form>
 {% endblock %}
