@@ -1,3 +1,4 @@
+from django.forms import forms
 from django.shortcuts import render, redirect, render_to_response
 from django.template.context import RequestContext
 from photoshare.forms import UserProfileForm
@@ -55,22 +56,43 @@ def new_profile(request):
         return redirect('/', context_instance=context)
 
 def edit_profile(request):
-    # Similar to the the detail view, we have to find the existing profile we are editing
-    profile = request.user.userprofile
-
-    # We still check to see if we are submitting the form
+    context = RequestContext(request,
+                        {'request': request,
+                            'user': request.user})
+    data = { "profile_form": UserProfileForm()}
     if request.method == "POST":
-        # We prefill the form by passing 'instance', which is the specific
-        # object we are editing
-        form = UserProfileForm(request.POST, instance=profile)
+        form = UserProfileForm(request.POST)
         if form.is_valid():
-            if form.save():
-                return redirect("/profiles/{}".format(profile_id))
-
-    # Or just viewing the form
+            email = form.cleaned_data['email']
+            full_name = form.cleaned_data['full_name']
+            profile = request.user.userprofile
+            profile.email = email
+            profile.full_name = full_name
+            profile.save()
+            return redirect('/', context_instance=context)
     else:
-        # We prefill the form by passing 'instance', which is the specific
-        # object we are editing
-        form = UserProfileForm(instance=profile)
-    data = {"profile": profile, "form": form}
-    return render(request, "registration/edit_profile.html", data)
+        return render(request, "registration/edit_profile.html", data)
+
+
+
+
+
+    # # Similar to the the detail view, we have to find the existing profile we are editing
+    # profile = request.user.userprofile
+    # context = RequestContext(request,
+    #                     {'request': request,
+    #                         'user': request.user})
+    # # We still check to see if we are submitting the form
+    # if request.method == "POST":
+    #     # We prefill the form by passing 'instance', which is the specific
+    #     # object we are editing
+    #     form = UserProfileForm(request.POST, instance=profile)
+    #     if form.is_valid() and form.save():
+    #         return redirect('/', context_instance=context)
+    # # Or just viewing the form
+    # else:
+    #     # We prefill the form by passing 'instance', which is the specific
+    #     # object we are editing
+    #     form = UserProfileForm(instance=profile)
+    # data = {"profile": profile, "form": form}
+    # return render(request, "registration/edit_profile.html", data)
