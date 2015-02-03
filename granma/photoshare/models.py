@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 class Group(models.Model):
     name = models.CharField(max_length=35)
-    # gru = models.ForeignKey(GroupRoleUser)
+    viewer = models.OneToOneField(User, null=True)
     def __unicode__(self):
         return self.name
 
@@ -25,7 +25,7 @@ class GroupRoleUser(models.Model):
     )
     role = models.CharField(max_length=3, choices=ROLE_CHOICES, default='MBR')
     group = models.ForeignKey(Group, null=True)
-    user = models.ForeignKey(UserProfile, null=True)
+    user = models.ForeignKey(User, null=True)
     def __unicode__(self):
         return self.role
 

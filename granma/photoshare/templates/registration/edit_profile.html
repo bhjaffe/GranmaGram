@@ -2,8 +2,12 @@
 
 {% block main %}
     <h2>Enter your profile details</h2>
+    {% if warning == True %}
+        {% include 'includes/bad_form_warning.html' %}
+    {% endif %}
     <form method="POST">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.GET.next }}" />
         {{ profile_form }}
         <input type="submit" value="Submit"/>
     </form>

@@ -1,0 +1,16 @@
+{% extends 'registration/profile.html' %}
+
+{% block new_circle %}
+
+    <h3>Setting up a new circle</h3>
+    <p><em>Set up a user name and password for the viewer at the center of your new circle. This person is the person who will receive pictures posted to GranmaGram.</em></p>
+    {% if warning == True %}
+        {% include 'includes/bad_form_warning.html' %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ new_circle_form }}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

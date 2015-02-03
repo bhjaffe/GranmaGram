@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main %}
+     <h2>Your GranmaGram Profile</h2>
+     <ul>
+         <li>Name: {{ full_name }}</li>
+         <li>Email: {{ email }}</li>
+     </ul>
+     <p><a href="/profile/edit?next=/profile/">Edit profile</a></p>
+     <div class = circles>
+     <h4>Manage circles</h4>
+     <p><em>circles center around a single viewer, for whom pictures are posted</em></p>
+     <h5>Circles you belong to</h5>
+        <ul>
+         {% for circle in circles %}
+            <li>Circle: {{ circle.group.name }} - Role: {{ circle.role }}</li>
+         {% endfor %}
+        </ul>
+     <p><a href="/profile/edit?next=/profile/">Join a circle</a></p>
+     <p><a href="{% url 'new_circle' %}">Create a new circle</a></p>
+     {% block new_circle %}{% endblock %}
+     </div>
+
+{% endblock %}

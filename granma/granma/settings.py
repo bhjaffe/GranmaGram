@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 TEMPLATE_CONTEXT_PROCESSORS = (
    'django.contrib.auth.context_processors.auth',
+   'django.core.context_processors.request',
    'django.core.context_processors.debug',
    'django.core.context_processors.i18n',
    'django.core.context_processors.media',
@@ -42,12 +43,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
    'social.apps.django_app.context_processors.login_redirect',
 )
 
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-URL_PATH = ''
+# LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
+# URL_PATH = ''
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/profile/edit'
-AUTH_PROFILE_MODULE = 'photoshare.UserProfile'
+# AUTH_PROFILE_MODULE = 'photoshare.UserProfile'
 
 
 AUTHENTICATION_BACKENDS = (

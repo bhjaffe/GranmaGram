@@ -1,6 +1,6 @@
 <menu id="login_status">
 {% if user.is_authenticated %}
-    <p>Logged in as {{ user.userprofile.full_name }} | <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a></p>
+    <p>Logged in as {{ user.userprofile.full_name }} | <a href="{% url 'profile' %}">Profile</a> | <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a></p>
 {% else %}
     <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'create_account' %}">Create Account</a></p>
 {% endif %}
